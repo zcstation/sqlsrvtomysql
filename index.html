@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>数据导入</title>
+    <link href="css/weui.min.css" rel="stylesheet">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/weui.min.js"></script>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 20px 50px;
+        }
+
+        .weui-flex__item {
+            border: 1px solid #ccccee;
+            padding: 5px 10px;
+            margin: 5px;
+        }
+    </style>
+</head>
+
+<body>
+<h1>SQL Server数据转MySQL</h1>
+<br>
+<div class="weui-flex">
+    <div class="weui-flex__item" id="sqlsrv">
+        <div class="weui-cells__title">SQL Server数据库信息</div>
+        <div class="weui-cells weui-cells_form">
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">服务器地址</label></div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="text" placeholder="请输入服务器地址" id="sqlsrv_host" value="">
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">用户名</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="text" placeholder="请输入用户名" id="sqlsrv_user" value="">
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">密码</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="password" placeholder="请输入密码" id="sqlsrv_pwd"
+                           value="">
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">数据库</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="text" placeholder="请输入数据库" id="sqlsrv_database" value="">
+                </div>
+            </div>
+        </div>
+        <br>
+        <div style="width: 80%;margin: auto">
+            <button class="weui-btn weui-btn_primary" onclick="checkConnect('sqlsrv', this)">测试连接</button>
+        </div>
+    </div>
+    <div class="weui-flex__item" id="mysql">
+        <div class="weui-cells__title">MySQL数据库信息</div>
+        <div class="weui-cells weui-cells_form">
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">服务器地址</label></div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="text" placeholder="请输入服务器地址" id="mysql_host" value="">
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">用户名</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="text" placeholder="请输入用户名" id="mysql_user" value="">
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">密码</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="password" placeholder="请输入密码" id="mysql_pwd" value="">
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">数据库</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="text" placeholder="请输入数据库" id="mysql_database" value="">
+                </div>
+            </div>
+        </div>
+        <br>
+        <div style="width: 80%;margin: auto">
+            <button class="weui-btn weui-btn_primary" onclick="checkConnect('mysql', this)">测试连接</button>
+        </div>
+    </div>
+</div>
+<script src="js/custom.js"></script>
+</body>
+</html>
