@@ -6,7 +6,6 @@
  */
 set_time_limit(0);
 $data = $_POST;
-file_put_contents('../tables/log.txt', json_encode($data));
 if (empty($data) || empty($data['table'])) {
     $result = array(
         'errCode' => 'fail',
@@ -15,6 +14,8 @@ if (empty($data) || empty($data['table'])) {
 
     exit(json_encode($result));
 }
+// 删除上一次的SQL记录
+unlink('querySql.txt');
 
 if ($data['type'] == 'sqlsrv') {
     $dsn = "sqlsrv:Database={$data['database']};Server={$data['host']}";
@@ -87,7 +88,6 @@ function copyDb(PDO $dbh, PDO $toDbh, $data, $from = 'sqlsrv', $to = 'mysql')
         $sth = $dbh->prepare($sql['column']);
         $sth->execute();
         $result = $sth->fetchAll();
-        file_put_contents('../tables/' . $val . '.log', json_encode($result));
         if ($data['cover'] == 'true') {
             $toDbh->exec("DROP TABLE IF EXISTS {$val}");
         }
@@ -115,7 +115,7 @@ where a.constraint_type = 'PRIMARY KEY' and a.table_name = '$val'");
         if ($res) {
             $i++;
         } else {
-            file_put_contents('../tables/error.log', $val);
+            file_put_contents('error.log', $val);
         }
     }
 
@@ -150,7 +150,6 @@ function getSql($table, $data, $pk = null)
         if (!in_array($val['fieldColumn'], $array)) {
 
             if ($pk == $val['fieldColumn']) {
-                file_put_contents('../tables/fieldType.log', $val['fieldColumn'] . $val['fieldType']);
                 if ($val['fieldType'] == 'numeric') {
                     $sql .= "`{$val['fieldColumn']}` ".parseField($val['fieldType'], $val['length'])." AUTO_INCREMENT,";
                 } else {
@@ -169,7 +168,7 @@ function getSql($table, $data, $pk = null)
         $sql .= ' PRIMARY KEY (`'.$pk.'`)) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_general_ci';
     }
 
-    file_put_contents('../tables/field.txt', $sql . "\r\n\r\n", FILE_APPEND);
+    file_put_contents('querySql.txt', $sql . "\r\n\r\n", FILE_APPEND);
 
     return $sql;
 }
